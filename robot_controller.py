@@ -64,77 +64,77 @@ class RobotController:
     def setup_mode(self):
         # Setup mode code goes here
 
-        def ap_config(request):
-            print("ap_config")
-            request_string = str(request.form)
-            if request.method == "POST":
-                print(f'request: {request}')
-
-                ap_wifi = request.form.get("ap_wifi")
-                #            workaround
-                if ap_wifi == None:
-                    ap_wifi = "ap"
-                ssid = request.form.get("ssid")
-                password = request.form.get("password")
-                front_camera_ip = request.form.get("front_camera_ip")
-                back_camera_ip = request.form.get("back_camera_ip")
-
-                os.remove(self.CONFIG_FILE)
-                with open(self.CONFIG_FILE, "w") as f:
-                    # with open(CONFIG_FILE) as f:
-                    file_string = {"ap_wifi": ap_wifi,
-                                   "ssid": ssid,
-                                   "password": password,
-                                   "front_camera_ip": front_camera_ip,
-                                   "back_camera_ip": back_camera_ip}
-                # os.remove(CONFIG_FILE)
-                with open(self.CONFIG_FILE) as f:
-                    json.dump(file_string, f)
-                f.close()
-
-                #           add logic to check the save or the restart and code the restarting routine
-                if 'save_restart' in request_string:
-                    print("save and restart")
-                    self.machine_reset()
-
-                elif 'save' in request_string:
-                    wifi_networks = self.network.scan_networks(ap)
-                    print(f'wifi_networks: {wifi_networks}')
-
-                    wifi_options = self.network.wifi_networks_options(wifi_networks)
-                    print(f'wifi_options: {wifi_options}')
-
-                    return render_template(f"{self.TEMPLATE_PATH}/config.html", saved=1, domain=self.AP_DOMAIN,
-                                           ap_wifi=ap_wifi,
-                                           ssid=ssid, password=password, front_camera_ip=front_camera_ip,
-                                           back_camera_ip=back_camera_ip, wifi_networks_options=wifi_options)
-                else:
-                    # restart routine
-                    print("check the code")
-                    pass
-
-            elif request.method == "GET":
-                with open(self.CONFIG_FILE) as f:
-                    file = json.load(f)
-                    ap_wifi = file["ap_wifi"]
-                    ssid = file["ssid"]
-                    password = file["password"]
-                    front_camera_ip = file["front_camera_ip"]
-                    back_camera_ip = file["back_camera_ip"]
-                    f.close()
-                # verify how to add elements to template
-                wifi_networks = self.network.scan_networks(ap)
-
-                print(f'wifi_networks: {wifi_networks}')
-
-                wifi_options = self.network.wifi_networks_options(wifi_networks)
-                print(f'wifi_options: {wifi_options}')
-
-                return render_template(f"{self.TEMPLATE_PATH}/config.html", domain=self.AP_DOMAIN, ap_wifi=ap_wifi,
-                                       ssid=ssid,
-                                       password=password, front_camera_ip=front_camera_ip,
-                                       back_camera_ip=back_camera_ip,
-                                       wifi_networks_options=wifi_options)
+        # def ap_config(request):
+        #     print("ap_config")
+        #     request_string = str(request.form)
+        #     if request.method == "POST":
+        #         print(f'request: {request}')
+        #
+        #         ap_wifi = request.form.get("ap_wifi")
+        #         #            workaround
+        #         if ap_wifi == None:
+        #             ap_wifi = "ap"
+        #         ssid = request.form.get("ssid")
+        #         password = request.form.get("password")
+        #         front_camera_ip = request.form.get("front_camera_ip")
+        #         back_camera_ip = request.form.get("back_camera_ip")
+        #
+        #         os.remove(self.CONFIG_FILE)
+        #         with open(self.CONFIG_FILE, "w") as f:
+        #             # with open(CONFIG_FILE) as f:
+        #             file_string = {"ap_wifi": ap_wifi,
+        #                            "ssid": ssid,
+        #                            "password": password,
+        #                            "front_camera_ip": front_camera_ip,
+        #                            "back_camera_ip": back_camera_ip}
+        #         # os.remove(CONFIG_FILE)
+        #         with open(self.CONFIG_FILE) as f:
+        #             json.dump(file_string, f)
+        #         f.close()
+        #
+        #         #           add logic to check the save or the restart and code the restarting routine
+        #         if 'save_restart' in request_string:
+        #             print("save and restart")
+        #             self.machine_reset()
+        #
+        #         elif 'save' in request_string:
+        #             wifi_networks = self.network.scan_networks(ap)
+        #             print(f'wifi_networks: {wifi_networks}')
+        #
+        #             wifi_options = self.network.wifi_networks_options(wifi_networks)
+        #             print(f'wifi_options: {wifi_options}')
+        #
+        #             return render_template(f"{self.TEMPLATE_PATH}/config.html", saved=1, domain=self.AP_DOMAIN,
+        #                                    ap_wifi=ap_wifi,
+        #                                    ssid=ssid, password=password, front_camera_ip=front_camera_ip,
+        #                                    back_camera_ip=back_camera_ip, wifi_networks_options=wifi_options)
+        #         else:
+        #             # restart routine
+        #             print("check the code")
+        #             pass
+        #
+        #     elif request.method == "GET":
+        #         with open(self.CONFIG_FILE) as f:
+        #             file = json.load(f)
+        #             ap_wifi = file["ap_wifi"]
+        #             ssid = file["ssid"]
+        #             password = file["password"]
+        #             front_camera_ip = file["front_camera_ip"]
+        #             back_camera_ip = file["back_camera_ip"]
+        #             f.close()
+        #         # verify how to add elements to template
+        #         wifi_networks = self.network.scan_networks(ap)
+        #
+        #         print(f'wifi_networks: {wifi_networks}')
+        #
+        #         wifi_options = self.network.wifi_networks_options(wifi_networks)
+        #         print(f'wifi_options: {wifi_options}')
+        #
+        #         return render_template(f"{self.TEMPLATE_PATH}/config.html", domain=self.AP_DOMAIN, ap_wifi=ap_wifi,
+        #                                ssid=ssid,
+        #                                password=password, front_camera_ip=front_camera_ip,
+        #                                back_camera_ip=back_camera_ip,
+        #                                wifi_networks_options=wifi_options)
 
         def app_settings_ap(request):
             # request_string = str(request.form)
@@ -296,11 +296,11 @@ class RobotController:
 
         server.set_callback(self.app_catch_all)
         pass
-    def app_app(request):
+    def app_app(self,request):
         return render_template(f"{self.TEMPLATE_PATH}/{self.DASHBOARD}", ip=self.IP_ADDRESS, ap_wifi="wifi",
                                front_camera_ip=self.FRONT_CAMERA_IP, back_camera_ip=self.BACK_CAMERA_IP)
 
-    def app_settings(request):
+    def app_settings(self,request):
         # request_string = str(request.form)
         if request.method == "POST":
             print("inside post")
@@ -387,7 +387,7 @@ class RobotController:
             pass
         pass
 
-    def app_api_settings(request):
+    def app_api_settings(self,request):
         if request.method == "GET":
             # read the parameters from the file
             os.stat(self.CONFIG_FILE)  # verify if it is required ...
@@ -425,7 +425,7 @@ class RobotController:
 
         return f'{file_string}'
 
-    def app_distance(request):
+    def app_distance(self,request):
         print("api distance call")
         if request.method == "GET":
             print("get call")
@@ -438,10 +438,10 @@ class RobotController:
         else:
             return "not recognised"
 
-    def app_catch_all(request):
+    def app_catch_all(self,request):
         return "Not found.", 404
 
-    def app_motor_move(request):
+    def app_motor_move(self,request):
         print("motor")
         # onboard_led.toggle()
 
@@ -469,7 +469,7 @@ class RobotController:
             print("stop")
         return ""
 
-    def app_camera_move(request):
+    def app_camera_move(self,request):
         # query_string example
         # query_string: camera_control = down?front_back = front
         camera_control = (request.query_string.split("=")[1]).split("?")[0]
@@ -511,7 +511,7 @@ class RobotController:
             print("mouse down?")
         return ""
 
-    def app_api(request):
+    def app_api(self,request):
         print("api")
         if request.method == "POST":
 

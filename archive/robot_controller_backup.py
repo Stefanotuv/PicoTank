@@ -25,8 +25,8 @@ class RobotController:
         self.AP_NAME = "PicoRobot"
         self.AP_PASSWORD = "PicoRobot"
         self.AP_DOMAIN = "pipico.net"
-        self.TEMPLATE_PATH = "templates"
-        self.CONFIG_FILE = "config.json"
+        self.TEMPLATE_PATH = "../templates"
+        self.CONFIG_FILE = "../config.json"
         self.FRONT_CAMERA_IP = "192.168.2.186"  # initial value
         self.BACK_CAMERA_IP = "192.168.2.235"  # initial value
         self.IP_ADDRESS = ""

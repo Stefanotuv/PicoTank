@@ -34,14 +34,14 @@ print("after")
 AP_NAME = "PicoRobot"
 AP_PASSWORD = "PicoRobot"
 AP_DOMAIN = "pipico.net"
-TEMPLATE_PATH = "templates"
+TEMPLATE_PATH = "../templates"
 # FRONT_CAMERA_IP = "192.168.2.243"
 
 # initial IP addresses for cameras
 FRONT_CAMERA_IP = "192.168.2.186"
 BACK_CAMERA_IP = "192.168.2.235"
 
-CONFIG_FILE = "config.json"  # include all the configurations here
+CONFIG_FILE = "../config.json"  # include all the configurations here
 
 IP_ADDRESS = ""
 
