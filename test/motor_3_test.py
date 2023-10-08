@@ -1,11 +1,10 @@
 import machine
-from machine import Pin
 import utime
 
 # Pin Definitions
-motor_pwm_pin = machine.Pin(6)  # GP18 as PWM pin for motor speed control
-motor_in1_pin = machine.Pin(7,Pin.OUT)  # GP19 as IN1 pin for motor direction control
-motor_in2_pin = machine.Pin(8,Pin.OUT)  # GP20 as IN2 pin for motor direction control
+motor_pwm_pin = machine.Pin(14)  # GP18 as PWM pin for motor speed control
+motor_in1_pin = machine.Pin(15)  # GP19 as IN1 pin for motor direction control
+motor_in2_pin = machine.Pin(16)  # GP20 as IN2 pin for motor direction control
 
 # Configure PWM for motor speed control
 motor_pwm = machine.PWM(motor_pwm_pin)
@@ -29,12 +28,12 @@ def control_motor(speed, direction):
 # Main loop
 while True:
     print("Running motor forward at half speed")
-    control_motor(.7, "forward")  # Run motor forward at half speed
-    utime.sleep(1)                 # Wait for 2 seconds
+    control_motor(0.5, "forward")  # Run motor forward at half speed
+    utime.sleep(2)                 # Wait for 2 seconds
 
     print("Running motor backward at full speed")
-    control_motor(0.7 , "backward") # Run motor backward at full speed
-    utime.sleep(1)                 # Wait for 2 seconds
+    control_motor(1.0, "backward") # Run motor backward at full speed
+    utime.sleep(2)                 # Wait for 2 seconds
 
     print("Stopping the motor")
     motor_pwm.duty_u16(0)          # Stop the motor
